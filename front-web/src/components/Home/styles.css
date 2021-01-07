@@ -1,6 +1,6 @@
 .home_container {
-    padding-top: 100px;
-    height: calc(100vh - 254px);
+    padding: 100px 45px 0px 45px;
+    height: calc(100vh - 268px);
     margin: auto;
     max-width: 980px;
     display: flex;
@@ -65,18 +65,21 @@
   @media only screen and (max-width: 768px) {
     .home_container {
       height: auto;
+      padding: 0px;
+      padding-top: 50px;
       margin-bottom: 50px;
     }
   
-    .home-content {
+    .home_content {
       flex-direction: column-reverse;
     }
   
-    .home-title {
+    .home_title {
       font-size: 40px;
+      text-align: center;
     }
     
-    .home-subtitle {
+    .home_subtitle {
       text-align: center;
     }
   
