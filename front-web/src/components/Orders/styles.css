@@ -157,10 +157,13 @@
     display: flex;
     justify-content: center;
     margin-top: 20px;
+    margin-bottom: 20px;
+
   }
   
   .filter {
     width: 80%;
+    z-index: 500;
   }
   
   .filter > div {
@@ -261,7 +264,7 @@
     background-color: #fcf2f2;
     transform: scale(1.01);
   }
-  
+
   @media only screen and (max-width: 768px) {
     .orders_steps_content {
       display: flex;
