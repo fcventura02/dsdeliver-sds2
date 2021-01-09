@@ -50,8 +50,8 @@ function OrderLocation({onChangeLocation}: Props) {
     const handleChangeSelect = (place: Place) => {
         setAddress(place);
         onChangeLocation({
-            lat: place.position.lat,
-            lng: place.position.lng,
+            latitude: place.position.lat,
+            longitude: place.position.lng,
             address: place.label!
         });
     };

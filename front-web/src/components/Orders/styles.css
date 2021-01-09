@@ -191,7 +191,7 @@
   .order_summary_container {
     display: flex;
     justify-content: center;
-    margin-bottom: 30px;
+    padding-bottom: 30px;
   }
   
   .order_summary_content {
@@ -262,6 +262,7 @@
   
   .order_summary_make_order:hover {
     background-color: #fcf2f2;
+    color: var(--primary-hover-color);
     transform: scale(1.01);
   }
 
