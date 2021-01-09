@@ -8,6 +8,8 @@ import OrderLocation from "./OrderLocation";
 import OrderSummary from "./OrderSummary";
 import { checkIsSelected } from "./helpers";
 import { toast } from 'react-toastify';
+import { ReactComponent as Loading } from '../../assets/img/loading.svg'
+
 
 function Orders() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -20,7 +22,10 @@ function Orders() {
     useEffect(() => {
         fetchProducts()
             .then(res => setProducts(res.data))
-            .catch(err => console.log(err))
+            .catch(err => {
+                toast.warning('Não foi possivel conectar ao servidor!')
+                console.log(err)
+            })
     }, [])
 
     const handleSelectProduct = (product: Product) => {
@@ -40,7 +45,6 @@ function Orders() {
             ...orderLocation!,
             products: productsIds
         }
-        console.log(orderLocation)
         if (!productsIds.length)
             toast.warning('Selecione pelomenos um produto!');
         else if (!orderLocation)
@@ -56,10 +60,10 @@ function Orders() {
         }
     }
 
-
     return (
         <nav className="orders_container">
             <StepsHeader />
+            {!products.length && <Loading/>}
             <ProductsList products={products} onSelectProduct={handleSelectProduct} selectedProducts={selectedProducts} />
             <OrderLocation onChangeLocation={location => setOrderLocation(location)} />
             <OrderSummary ammount={selectedProducts.length} totalPrice={totalPrice} onSubmit={handleSubmit} />

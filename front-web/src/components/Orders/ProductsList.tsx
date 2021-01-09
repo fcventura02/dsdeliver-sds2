@@ -10,11 +10,10 @@ type Props = {
 }
 
 function ProductsList({ products, onSelectProduct, selectedProducts }: Props) {
-
     return (
         <div className="orders_list_container">
             <div className="orders_list_items">
-                {
+                {  
                     products.map(product => (
                             <ProductCard key={product.id} 
                             product={product} 
