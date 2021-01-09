@@ -266,6 +266,28 @@
     transform: scale(1.01);
   }
 
+  .map-popup .leaflet-popup-content-wrapper{
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    box-shadow: none;
+}
+
+.map-popup .leaflet-popup-content{
+  color:var(--primary-color);
+  font-size: 15px;
+  font-weight: bold;
+  margin: 8px 12px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.map-popup .leaflet-popup-content p{
+  margin: 5px;
+}
+
+
   @media only screen and (max-width: 768px) {
     .orders_steps_content {
       display: flex;

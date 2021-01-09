@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import AscSelect from 'react-select/async';
 import { fetchLocalMapBox } from '../../services/api';
+import { mapIcon, mapIconPeople } from '../../utils/mapIcon';
 import { OrderLocationData } from './types';
 
 const initialPosition = {
-    lat: -19.9155477,
-    lng: -43.9439658
+    lat: -19.920255,
+    lng: -43.940286
 }
 
 
@@ -24,7 +25,7 @@ type Props = {
     onChangeLocation: (location: OrderLocationData) => void;
 }
 
-function OrderLocation({onChangeLocation}: Props) {
+function OrderLocation({ onChangeLocation }: Props) {
     const [address, setAddress] = useState<Place>({
         position: initialPosition
     })
@@ -73,11 +74,31 @@ function OrderLocation({onChangeLocation}: Props) {
                     <TileLayer
                         url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_ACCESS_TOKEN_MAP_BOX}`}
                     />
-                    <Marker position={address.position}>
-                        <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
-                            {address.label}
+
+                    <Marker position={initialPosition} icon={mapIcon}>
+                        <Popup
+                            closeButton={false}
+                            minWidth={240}
+                            maxWidth={240}
+                            className="map-popup"
+                            autoClose
+                        >
+                            <p>Estamos aqui</p>
+                            <p>
+                                R. São Paulo - Centro
+                                Belo Horizonte - MG, 30120-050
+                            </p>
                         </Popup>
                     </Marker>
+                    {address.position && (
+                        <Marker position={address.position} icon={mapIconPeople}>
+                            <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
+                                <p>Você está aqui:</p>
+                                <p>{address.label}</p>
+                            </Popup>
+                        </Marker>
+                    )
+                    }
                 </MapContainer>
 
             </div>
