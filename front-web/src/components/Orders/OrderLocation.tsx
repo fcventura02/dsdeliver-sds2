@@ -57,6 +57,7 @@ function OrderLocation({ onChangeLocation }: Props) {
         });
     };
 
+    console.log(address.label)
     return (
         <div className="order_location_container">
             <div className="order_location_content">
@@ -64,7 +65,7 @@ function OrderLocation({ onChangeLocation }: Props) {
                     Selecione onde o pedido deve ser entregue:
                 </h3>
                 <div className="filter_container">
-                    <AscSelect placeholder="Digite o endereço para entrega" className="filter" loadOptions={loadOptions} onChange={value => handleChangeSelect(value as Place)} />
+                <AscSelect placeholder="Digite o endereço para entrega" className="filter" loadOptions={loadOptions} onChange={value => handleChangeSelect(value as Place)} />
                 </div>
                 <MapContainer center={address.position}
                     zoom={15}
@@ -90,7 +91,7 @@ function OrderLocation({ onChangeLocation }: Props) {
                             </p>
                         </Popup>
                     </Marker>
-                    {address.position && (
+                    {!(address.label === undefined) && (
                         <Marker position={address.position} icon={mapIconPeople}>
                             <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
                                 <p>Você está aqui:</p>
