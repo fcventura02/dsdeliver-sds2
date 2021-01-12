@@ -3,7 +3,6 @@ import React from 'react';
 import { Alert, Linking, StyleSheet, Text, View } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { confirmDelivery } from '../../service/api';
-import { dateFormatNow, formatPrice } from '../../utils/format';
 import { Order } from '../../utils/types';
 import Header from '../Header';
 import OrderCard from '../OrderCard';
@@ -22,8 +21,6 @@ export default function OrderDetails({ route }: Props) {
     const handleOnPress = () => {
         navigation.navigate('Orders');
     }
-    console.log(order)
-
     const handleConfirmDelivery = () => {
         confirmDelivery(order.id).then(() => {
             Alert.alert(`Pedido ${order.id} Cpnfirmado com sucesso!`)
@@ -31,7 +28,6 @@ export default function OrderDetails({ route }: Props) {
         })
             .catch(() => Alert.alert(`Houve um erro ao confirmar o pedido ${order.id}`))
     }
-
     const handleStartNavigation = () => {
         Linking.openURL(`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=navigate&destination=${order.latitude},${order.longitude}`)
     }
@@ -41,7 +37,6 @@ export default function OrderDetails({ route }: Props) {
             <Header />
             <View style={styles.container}>
                 <OrderCard order={order} />
-
                 <RectButton onPress={handleStartNavigation} style={styles.button}><Text style={styles.buttonText}>INICIAR NAVEGAÇÃO</Text></RectButton>
                 <RectButton onPress={handleConfirmDelivery} style={styles.button}><Text style={styles.buttonText}>CONFIRMAR ENTREGA</Text></RectButton>
                 <RectButton onPress={handleOnPress} style={styles.button}><Text style={styles.buttonText}>CANCELAR</Text></RectButton>
