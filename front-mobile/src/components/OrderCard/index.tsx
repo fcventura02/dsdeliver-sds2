@@ -1,27 +1,29 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { dateFormatNow, formatPrice } from '../../utils/format';
+import { Order } from '../../utils/types';
 
-export default function OrderCard() {
+type Props = {
+    order: Order
+}
+
+export default function OrderCard({ order }: Props) {
+
     return (
         <>
             <View style={styles.container}>
                 <View style={styles.header}>
                     <View>
-                        <Text style={styles.orderName}>PEDIDO 1</Text>
-                        <Text style={styles.text}>Há 30 min.</Text>
+                        <Text style={styles.orderName}>Pedido {order.id}</Text>
+                        <Text style={styles.text}>{dateFormatNow(order.moment)}</Text>
                     </View>
-                    <Text style={styles.orderPrice}>R$ 35,90</Text>
+                    <Text style={styles.orderPrice}>{formatPrice(order.total)}</Text>
                 </View>
                 <View style={styles.productsList}>
-                    <Text >
-                        Pizza Calabresa
-                    </Text>
-                    <Text>
-                        Pizza Quatro Queijos
-                    </Text>
-                    <Text>
-                        Pizza Marguerita
-                    </Text>
+                    {order.products.map(product =>
+                        <Text key={product.id}>{product.name}</Text>
+                    )
+                    }
                 </View>
             </View>
         </>

@@ -1,22 +1,36 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Alert, Text } from 'react-native';
+import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { fetchOrders } from '../../service/api';
+import { Order } from '../../utils/types';
 import Header from '../Header';
 import OrderCard from '../OrderCard';
 
 export default function Orders() {
-    
+    const [orders, setOrders] = useState<Order[]>([])
+    const [isLoading, setIsLoading] = useState(false)
+    useEffect(() => {
+        setIsLoading(true);
+        fetchOrders()
+            .then(res => setOrders(res.data))
+            .catch(() => Alert.alert("Tivemos um problema para acessar o servidor."))
+            .finally(() => setIsLoading(false))
+    }, []);
+    const navigation = useNavigation();
+    const handleOnPress = (order: Order) => {
+        navigation.navigate('OrderDetails', {order});
+    }
+
     return (
         <>
             <Header />
             <ScrollView style={styles.container} >
-                <OrderCard/>
-                <OrderCard/>
-                <OrderCard/>
-                <OrderCard/>
-                <OrderCard/>
-                <OrderCard/>
+                {isLoading ? <Text>Buscando pedidos....</Text> : orders.map(order =>
+                    <TouchableWithoutFeedback onPress={() => handleOnPress(order)} key={order.id} >
+                        <OrderCard order={order} />
+                    </TouchableWithoutFeedback>
+                )}
             </ScrollView>
         </>
     );
