@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Alert, Text } from 'react-native';
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
@@ -10,16 +10,24 @@ import OrderCard from '../OrderCard';
 export default function Orders() {
     const [orders, setOrders] = useState<Order[]>([])
     const [isLoading, setIsLoading] = useState(false)
-    useEffect(() => {
+    const isFocused = useIsFocused()
+
+    const fetchData = () => {
         setIsLoading(true);
         fetchOrders()
             .then(res => setOrders(res.data))
             .catch(() => Alert.alert("Tivemos um problema para acessar o servidor."))
             .finally(() => setIsLoading(false))
-    }, []);
+    }
+
+    useEffect(() => {
+        if (isFocused)
+            fetchData();
+    }, [isFocused]);
+
     const navigation = useNavigation();
     const handleOnPress = (order: Order) => {
-        navigation.navigate('OrderDetails', {order});
+        navigation.navigate('OrderDetails', { order });
     }
 
     return (
