@@ -2,7 +2,7 @@ export type Order = {
     id:number,
     address: string,
     latitude:number,
-    longetude:number,
+    longitude:number,
     moment: string,
     status: string,
     total:number
